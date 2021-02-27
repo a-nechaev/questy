@@ -1,0 +1,13 @@
+; run installer to create namespace
+
+do $System.OBJ.LoadDir("/tmp/iris","ck",,1)
+zpm "install dsw"
+zpm "install isc-dev"
+do ##class(dev.code).workdir("/irisapp")
+do EnableDeepSee^%SYS.cspServer("/csp/user/")
+zpm "install iris-cron-task"
+zw ##class(dc.cron.task).Start("* * * * *","set sc=##class(%DeepSee.Utils).%BuildCube(""Items"")",1,.taskId)
+
+zpm "load /tmp/app -v"
+
+halt
