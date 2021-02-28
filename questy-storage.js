@@ -1,7 +1,4 @@
-const path = require('path');
-const fs = require('fs');
-
-const iris = require(path.join(__dirname, './iris'));
+const iris = require('./iris');
 
 module.exports = function() {
     "use strict";
@@ -18,4 +15,7 @@ module.exports = function() {
             iris.insert(type, event, data);
         }
     };
+    this.findOne = function (id) {
+        iris.findOne(id);
+    }
 };

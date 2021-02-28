@@ -1,6 +1,4 @@
-const path = require('path');
-
-const IRISNative = require(path.join(__dirname, './intersystems-iris-native/index.js'));
+const IRISNative = require('./intersystems-iris-native');
 
 const IRIS_HOST = process.env.IRIS_HOST || '127.0.0.1';
 const IRIS_PORT = process.env.IRIS_PORT || 1972;
@@ -23,6 +21,11 @@ const App = function () {
     this.insert = function (type, event, data) {
         let val = native.classMethodValue('questy.storage.item', 'Insert', type, event, JSON.stringify(data));
         console.log('insert: ', type, event, data, val);
+    };
+
+    this.findOne = function (id) {
+        let val = native.classMethodValue('questy.storage.item', 'Find', id);
+        console.log('find: ', val);
     };
 }
 
